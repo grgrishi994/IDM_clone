@@ -8,8 +8,8 @@ const Footer = () => {
         display: "flex",
         flexDirection: "column",
         width:"100%",
-        position:"absolute",
-        bottom:"0px",
+        position:"fixed",
+        bottom:0,
       }}
     >
       <Box
@@ -22,7 +22,8 @@ const Footer = () => {
           justifyContent: "space-between",
           width: "100%",
           alignItems: "center",
-        paddingBottom:"10px"
+        paddingBottom:"10px",
+        
         }}
       >
         <Box

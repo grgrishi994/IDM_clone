@@ -1,4 +1,6 @@
-
+/* body{
+   background: #FFFFFF !important;
+} */
 @media screen and (max-width: 480px) {
    .box1{
   width:"30%"

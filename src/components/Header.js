@@ -13,6 +13,7 @@ const Header = () => {
   return (
        <Box className="Box1"
        sx={{
+        background:' #FFFFFF',
            display:'flex',
            flexDirection:"column",
            width:"100%",

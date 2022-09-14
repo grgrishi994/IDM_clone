@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import  ReactDOM  from "react-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,6 +18,7 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import Header from "../components/Header";
 import { bgcolor } from "@mui/system";
 import Footer from "../components/Footer";
+import "../css/Login.css"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,23 +56,36 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formValues)
   const errors = validate(formValues);
    Object.keys(errors).length === 0 ? 
      navigate("/reset"): setIsSubmit(true)
+     console.log("button clicked")
   };
 
-
+    const [email_error,setErrorEmail]=useState(false);
+    const [password_error,setErrorPassword]=useState(false);
    const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    console.log(values.email)
     if (!values.email) {
+      console.log("email is required")
+      setErrorEmail(true);
+      
+         ReactDOM.render(<p>Email is required</p>,document.getElementById('error-email'))
+
       errors.email = "Email is required!";
     } else if (!regex.test(values.email)) {
       errors.email = "true";
+      setErrorEmail(true);
+      ReactDOM.render(<p>Invalid Email</p>,document.getElementById('error-email'))
     }
 
     if (!values.password) {
       errors.password = "Password is required!";
+      setErrorPassword(true);
+      ReactDOM.render(<p>Password is required</p>,document.getElementById('error-password'))
     }
     return errors;
   };
@@ -133,7 +148,7 @@ const Login = () => {
             </Box>
            
             <Box  component="form"
-            onSubmit={handleSubmit}
+            //onSubmit={handleSubmit}
             >
               <Box
                 sx={{
@@ -149,6 +164,7 @@ const Login = () => {
               >
                 <p sx={{}}>EMAIL-ID</p>
                 <TextField
+              error={email_error}
                   variant="standard"
                   name="email"
                   type="email"
@@ -160,6 +176,7 @@ const Login = () => {
                     width: "75%",
                   }}
                 />
+                <div id="error-email"></div>
              
               
               </Box>
@@ -178,6 +195,7 @@ const Login = () => {
               >
                 <p>Password</p>
                 <TextField
+                 error={password_error}
                   variant="standard"
                   name="password"
                   type="password"
@@ -189,6 +207,7 @@ const Login = () => {
                     width: "75%",
                   }}
                 />
+                 <div id="error-password"></div>
                
               </Box>
               <Box
@@ -204,7 +223,7 @@ const Login = () => {
                 <Button
                   type="submit"
                   variant="contained"
-                  //onClick={handleSubmit}
+                  onClick={handleSubmit}
                   sx={{
                     bgcolor: "#272782",
                     mt: 5,
